@@ -26,13 +26,15 @@ func main() {
 		w.Write(b)
 	})
 
-	mux.Handle("/books", handleBooks())
+	mux.Handle("/books", serv{})
 	http.ListenAndServe(`:8000`, nil)
 }
 
+type serv struct {
 
+}
 
-func handleBooks(w http.ResponseWriter, r *http.Request) {
+func (s serv) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		b, _ := json.Marshal(bookList)
@@ -50,6 +52,7 @@ func handleBooks(w http.ResponseWriter, r *http.Request) {
 		}
 		bookList = append(bookList, newBook)
 		w.WriteHeader(http.StatusAccepted)
+		return
 	default:
 		w.WriteHeader(http.StatusBadRequest)
 		return
