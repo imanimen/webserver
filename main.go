@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
-	_ "net/http/pprof" // only to handle HandleFunc 
+	_ "net/http/pprof" // only to handle HandleFunc
 )
 
 
@@ -32,6 +33,13 @@ func main() {
 }
 
 func handleBooks(w http.ResponseWriter, r *http.Request) {
+	// if username, password, ok := r.BasicAuth() {
+	// 	w.WriteHeader(http.StatusUnauthorized)
+	// }
+
+	// q := r.URL.Query()
+	// fmt.Println(q.Get("name"))
+	
     switch r.Method {
     case "GET":
         b, _ := json.Marshal(bookList)
