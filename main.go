@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	_"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -11,8 +11,8 @@ import (
 
 
 type Book struct {   
-	Name string `json:"name`
-	Isbn string `json:"isbn`
+	Name string `json:"name"`
+	Isbn string `json:"isbn"`
 }
 
 // it is a slice from book struct and initialize it
