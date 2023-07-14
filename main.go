@@ -9,8 +9,8 @@ import (
 
 
 type Book struct {   
-	Name string `"json:name"`
-	Isbn string `"json:isbn"`
+	Name string `json:"name`
+	Isbn string `json:"isbn`
 }
 
 // it is a slice from book struct and initialize it
