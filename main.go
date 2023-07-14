@@ -48,7 +48,10 @@ func handleBooks(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		b, _ := json.Marshal(bookList)
-		w.Write(b)
+		_, err := w.Write(b)
+		if err != nil {
+			return
+		}
 		return
 	case "POST":
 		newBook := Book{}
