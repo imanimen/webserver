@@ -26,15 +26,12 @@ func main() {
 		w.Write(b)
 	})
 
-	mux.Handle("/books", serv{})
+	mux.Handle("/books", http.HandlerFunc(handleBooks))
 	http.ListenAndServe(`:8000`, nil)
 }
 
-type serv struct {
 
-}
-
-func (s serv) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func handleBooks(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		b, _ := json.Marshal(bookList)
