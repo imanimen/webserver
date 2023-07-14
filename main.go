@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	_ "net/http/pprof" // only to handle HandleFunc 
 )
 
 
@@ -18,7 +19,7 @@ var bookList []Book = []Book{}
 
 func main() {
 
-	mux := http.DefaultServeMux
+	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		b, _ := ioutil.ReadFile("resources/go.png")
 		w.Header().Add("content-type", "image/png")
@@ -27,7 +28,7 @@ func main() {
 	})
 
 	mux.Handle("/books", http.HandlerFunc(handleBooks))
-	http.ListenAndServe(`:8000`, nil)
+	http.ListenAndServe(`:8000`, mux)
 }
 
 func handleBooks(w http.ResponseWriter, r *http.Request) {
