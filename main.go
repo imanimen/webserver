@@ -39,8 +39,14 @@ func handleBooks(w http.ResponseWriter, r *http.Request) {
 		w.Write(b)
 		return
 	case "POST":
-		io.ReadAll(r.Body)
-
+		newBook := Book{}
+		b,_ := io.ReadAll(r.Body)
+		json.Unmarshal(b, &newBook)
+		for _, b := range bookList {
+			if b.Isbn == newBook.Isbn {
+				w.WriteHeader(http.StatusBadRequest)
+			}
+		}
 	default:
 		w.WriteHeader(http.StatusBadRequest)
 		return
