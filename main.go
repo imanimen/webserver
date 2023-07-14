@@ -26,7 +26,7 @@ func main() {
 		w.Write(b)
 	})
 
-	mux.Handle("/books")
+	mux.Handle("/books", handleBooks())
 	http.ListenAndServe(`:8000`, nil)
 }
 
@@ -45,8 +45,11 @@ func handleBooks(w http.ResponseWriter, r *http.Request) {
 		for _, b := range bookList {
 			if b.Isbn == newBook.Isbn {
 				w.WriteHeader(http.StatusBadRequest)
+				return
 			}
 		}
+		bookList = append(bookList, newBook)
+		w.WriteHeader(http.StatusAccepted)
 	default:
 		w.WriteHeader(http.StatusBadRequest)
 		return
