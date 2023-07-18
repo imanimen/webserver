@@ -73,6 +73,11 @@ func (s *Server) HandleFunc(pattern string, handler func(http.ResponseWriter, *h
 	s.mux.HandleFunc(pattern, handler)
 }
 
+// unexported method 
+func (s *Server) internalHandler(pattern string, handler func(http.ResponseWriter, *http.Request) {
+	s.mux.HandleFunc(pattern, handler)
+}
+
 func main() {
 	wg := new(sync.WaitGroup)
 	wg.Add(1)
